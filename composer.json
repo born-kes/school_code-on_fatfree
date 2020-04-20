@@ -1,0 +1,24 @@
+{
+	"name": "born-kes/fatfree",
+	"description": "file install pack composer",
+	"license": "GPL-3.0",
+	"type": "education",
+	"authors": [
+		{
+			"name": "born-kes",
+			"email": "born-kes@o2.pl"
+		}
+	],
+	"require": {
+		"php": ">=5.4"
+	},
+	"require-dev": {
+		"phpunit/phpunit": "^9",
+		"bcosca/fatfree-core" : "^3.7"
+	},
+	"autoload": {
+		"classmap": [
+			"src/"
+		]
+	}
+}
