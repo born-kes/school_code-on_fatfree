@@ -24,13 +24,8 @@ class main {
             // ajax, csv, html
 
 
-        MyView::setMenu( ['jeden');
+        MyView::menu( $f3->get('PROJECT'),  $f3->get('PARAMS.0') );
 
-
-
-		$f3->set('content','main\test.htm');
-
-        $f3->set('test1','world');
 		echo View::instance()->render('layout.htm');
     }
 } 

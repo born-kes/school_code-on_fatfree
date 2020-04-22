@@ -16,19 +16,10 @@
 </style>
 	</head>
 	<body>
-
-	<nav class="navbar navbar-dark bg-primary">
-		<ul class="navbar-nav mr-auto">
-			<li class="nav-item active">
-				<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-			</li>
-		</ul>
-	</nav>
+	<?php echo v1\MyView::$navHtml; ?>
 	<div class="container">
 	<div class="selector-for-some-widget">
 	<h1>Hello, world!</h1>
-		<?php echo $this->render(Base::instance()->get('content')); ?>
-
 	</div>
 	</div>
 
