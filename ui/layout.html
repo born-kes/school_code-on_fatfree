@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<meta charset="<?php echo $ENCODING; ?>" />
+		<meta charset="{{ @ENCODING }}" />
 		<!--mobile first-->
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<title><?= $PROJECT; ?></title>
-		<base href="<?php echo $SCHEME.'://'.$HOST.':'.$PORT.$BASE.'/'; ?>" />
+		<base href="{{ @SCHEME }}://{{ @HOST }}:{{ @PORT }}{{ @BASE }}/" />
 
 		<!-- Bootstrap CSS -->
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -16,12 +16,12 @@
 </style>
 	</head>
 	<body>
-	<?php echo v1\MyView::$navHtml; ?>
+	<include href="{{ @ui . @navHtml }}" />
 	<div class="container">
 	<div class="selector-for-some-widget">
-	<h1><?= $PARAMS['page']; ?></h1>
+	<h1>{{ @PARAMS.page }}</h1>
         <div>
-            <?= $content; ?>
+            {{ @content }}
         </div>
 	</div>
 	</div>

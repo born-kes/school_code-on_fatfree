@@ -56,4 +56,8 @@ class MyView
         self::$navHtml = ob_get_contents();
         ob_end_clean();
     }
+    
+    public static function getMenuArray () {
+        return self::$menuLinks;
+    }
 }
