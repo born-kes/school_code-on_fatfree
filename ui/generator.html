@@ -1,0 +1,60 @@
+<h3>Test <a href="https://phpunit.de/getting-started/phpunit-9.html">PhpUnit</a> </h3>
+<style>
+    .form, .form input, .form textarea  {background-color: gray;padding: 10px;}
+    .form .input {text-transform: capitalize;}
+    .form .input:before {content: "  ";}
+    ::placeholder, :-ms-input-placeholder, ::-ms-input-placeholder { /* Internet Explorer 10-11 */
+        color: red;
+    }
+    p {margin: 0;}
+    p[contenteditable] {color:#cccccc; margin-top: 1rem;}
+
+
+    .form .textarea {margin: 5px;}
+
+    /*form #testClassName:before {content: "class "; color: #cc7832;font-weight: 500;}*/
+    .form {min-height: 300px;width: 100%;}.form textarea {height: 300px;width: 100%;}
+</style>
+
+
+<form method="POST" name="x">
+    <div class="form">&lt;?php
+        <br>
+        <p>namespace PHPUnit\Framework;</p>
+
+        <p>use @NameClass</p>
+
+        <p>/**</p>
+        <p role="textbox" contenteditable >* Nazwa testu:</p>
+        <p>*/</p>
+        class&nbsp; <span class="input" id="testClassName" role="textbox" contenteditable>main</span>Test extends TestCase
+        <p>{</p>
+        <p>/**</p>
+        <p role="textbox" contenteditable >* Nazwa metody Testowanej:</p>
+        <p>*/</p>
+        <div style="margin: 0 15px;">public function test<span class="input" role="textbox" contenteditable>functionName</span> () :void
+            <p>{</p>
+            <span class="textarea" role="textbox" contenteditable> xxx  </span>
+            <p>}</p></div>
+        <div><p>}</p></div>
+    </div>
+    <div><textarea id="ClassTest" name="ClassTest">xyz</textarea>
+        <input type="submit" value="Uwtórz test">
+    </div>
+</form><script
+        src="https://code.jquery.com/jquery-2.2.0.js"
+        crossorigin="anonymous"></script>
+<script>
+    jQuery('form input[type=submit]').click(function () {
+        let classTest = jQuery('.form').text();
+        let data = {
+            'newClassTest': jQuery('#testClassName').text() +'Test',
+            file:classTest};
+
+        console.log(data);
+        console.log(jQuery);
+        jQuery.post( "Generator", data );
+
+        return false;
+    })
+</script>

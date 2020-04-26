@@ -6,7 +6,7 @@ use View;
 class main {
 
     /**
-     * @param $f3
+     * @param $f3 \Base
      */
     static function index ($f3) {
 
@@ -33,21 +33,31 @@ class main {
     }
 
     static function view ( $f3 ) {
-        MyView::menu( $f3->get('PROJECT'),  $f3->get('PARAMS.0') );
+        MyView::getMenuView( $f3->get('PROJECT'),  $f3->get('PARAMS.0') );
 
         echo View::instance()->render('layout.htm');
     }
 
+    /**
+     * @param $f3 \Base
+     */
     static function template ( $f3 ) {
 
         $f3->set('navHtml', '/nav.html' );
         $f3->set('menuLinks', MyView::getMenuArray() );
 
-//        if (class_exists($f3->get('PARAMS.page')) && method_exists(__NAMESPACE__."\\{$f3->get('PARAMS.page')}", 'index') ) {
-//            call_user_func(__NAMESPACE__."\\{$f3->get('PARAMS.page')}::index",$f3);
-//
-//        }
+//        $f3->set('fcja', function($s){ self::ff($s); });
+
+        if ( class_exists( $f3 -> get ('PARAMS.page') ) ) {
+            $f3->set('content',
+                call_user_func(__NAMESPACE__."\\{$f3->get('PARAMS.page')}::index", $f3 )
+            );
+        }
 
         echo \Template::instance()->render("layout.html");
+    }
+
+    public static function ff ( $s ) {
+        echo "to jest: {$s}";
     }
 } 

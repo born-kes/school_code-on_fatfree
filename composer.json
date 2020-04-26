@@ -18,7 +18,12 @@
 	},
 	"autoload": {
 		"classmap": [
-			"src/"
+			"src/",
+			"api/"
 		]
+	},
+	"scripts": {
+		"phpunit": "php ./vendor/bin/phpunit",
+		"test": "@phpunit",
 	}
 }
