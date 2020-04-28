@@ -20,9 +20,11 @@ class MainControler {
 
         // action User - Post/Put/Delete
         $classPage = MyPageControler::getClasseForCurrentPage ($f3->get('PARAMS.0'));
-        $f3->set('content',
-            call_user_func(__NAMESPACE__."\\{$classPage}::index", $f3 )
-        );
+		ob_start();
+		$content = call_user_func(__NAMESPACE__."\\{$classPage}::index", $f3 );
+		
+        $f3->set('content', $content?$content:ob_get_contents() );
+			ob_end_clean();
         // get User data
         // get Page data
 
