@@ -1,0 +1,54 @@
+<?php
+namespace v1;
+
+use View;
+
+class MainControler {
+
+    /**
+     * @param $f3 \Base
+     */
+    static function index ($f3) {
+        // todo Session test
+            // user Login & login in
+            // login Out & testTime
+
+        //ToDo Get this Page
+            // whot to do when is empty or does not exist
+//        MyPageControler::setPage($f3->get('PAGES.0'));
+        $f3->set('menuLinks', MyPageControler::getPageList ( $f3 ) );
+
+        // action User - Post/Put/Delete
+        $classPage = MyPageControler::getClasseForCurrentPage ($f3->get('PARAMS.0'));
+        $f3->set('content',
+            call_user_func(__NAMESPACE__."\\{$classPage}::index", $f3 )
+        );
+        // get User data
+        // get Page data
+
+        // Response type
+            // ajax, csv, html
+        self::replyToUser ($f3);
+    }
+
+    /**
+     * @param $f3 \Base
+     */
+    static function template ( $f3 ) {
+
+        if ( class_exists( $f3 -> get ('PARAMS.page') ) ) {
+            $f3->set('content',
+                call_user_func(__NAMESPACE__."\\{$f3->get('PARAMS.page')}::index", $f3 )
+            );
+        }
+
+    }
+
+    private static function replyToUser(\Base $f3)
+    {
+        $f3->set('navHtml', '/nav.html' );
+        $f3->set('menuLinks', MyPageControler::getPageList() );
+
+        echo \Template::instance()->render("layout.html");
+    }
+} 
