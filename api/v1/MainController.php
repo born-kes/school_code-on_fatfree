@@ -3,7 +3,7 @@ namespace v1;
 
 use View;
 
-class MainControler {
+class MainController {
 
     /**
      * @param $f3 \Base
@@ -15,11 +15,11 @@ class MainControler {
 
         //ToDo Get this Page
             // whot to do when is empty or does not exist
-//        MyPageControler::setPage($f3->get('PAGES.0'));
-        $f3->set('menuLinks', MyPageControler::getPageList ( $f3 ) );
+//        MyPageController::setPage($f3->get('PAGES.0'));
+        $f3->set('menuLinks', MyPageController::getPageList ( $f3 ) );
 
         // action User - Post/Put/Delete
-        $classPage = MyPageControler::getClasseForCurrentPage ($f3->get('PARAMS.0'));
+        $classPage = MyPageController::getClasseForCurrentPage ($f3->get('PARAMS.0'));
 		ob_start();
 		$content = call_user_func(__NAMESPACE__."\\{$classPage}::index", $f3 );
 		
@@ -49,7 +49,7 @@ class MainControler {
     private static function replyToUser(\Base $f3)
     {
         $f3->set('navHtml', '/nav.html' );
-        $f3->set('menuLinks', MyPageControler::getPageList() );
+        $f3->set('menuLinks', MyPageController::getPageList() );
 
         echo \Template::instance()->render("layout.html");
     }

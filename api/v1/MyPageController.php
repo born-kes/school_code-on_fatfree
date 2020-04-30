@@ -1,10 +1,9 @@
 <?php
 namespace v1;
 
-use View;
-
-class MyPageControler
+class MyPageController
 {
+    private static $DefaultClassForCurrentPage = 'Home';
     private static $menuLinks = [
         [
             'text' => 'Archiwum',
@@ -37,14 +36,14 @@ class MyPageControler
             'url' => 'Blog'
         ]
     ];
-    private static $navHtml = null;
+    private static $navArray = null;
 
     public static function getPageList()
     {
-        if (self::$navHtml == null) {
-            self::$navHtml = self::createPageList (self::$menuLinks);
+        if (self::$navArray == null) {
+            self::$navArray = self::createPageList (self::$menuLinks);
         }
-        return self::$navHtml;
+        return self::$navArray;
     }
 
     private static function createPageList ($menuLinks)
@@ -70,7 +69,7 @@ class MyPageControler
         $accessPath = explode('/', $ActivePage);
 
         foreach ($accessPath as $key) {
-//            if($key == '') continue;
+            if($key == '') continue;
             foreach ($lista as $value){
                 if($value['url'] == $key ) {
                     $lista = $value;
@@ -84,6 +83,6 @@ class MyPageControler
         if( isset($lista['class']) ){
             return $lista['class'];
         }
-        return 'Home';
+        return self::$DefaultClasseForCurrentPage;
     }
 }
