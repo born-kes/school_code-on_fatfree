@@ -1,8 +1,6 @@
 <?php
 namespace v1;
 
-use View;
-
 class MainController {
 
     /**
@@ -19,7 +17,7 @@ class MainController {
         $f3->set('menuLinks', MyPageController::getPageList ( $f3 ) );
 
         // action User - Post/Put/Delete
-        $classPage = MyPageController::getClasseForCurrentPage ($f3->get('PARAMS.0'));
+        $classPage = MyPageController::getClassForCurrentPage ($f3->get('PARAMS.0'));
 		ob_start();
 		$content = call_user_func(__NAMESPACE__."\\{$classPage}::index", $f3 );
 		

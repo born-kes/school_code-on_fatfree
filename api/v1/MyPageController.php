@@ -63,7 +63,7 @@ class MyPageController
         return $pageList;
     }
 
-    public static function getClasseForCurrentPage($ActivePage)
+    public static function getClassForCurrentPage($ActivePage)
     {
         $lista = self::$menuLinks;
         $accessPath = explode('/', $ActivePage);
@@ -71,6 +71,7 @@ class MyPageController
         foreach ($accessPath as $key) {
             if($key == '') continue;
             foreach ($lista as $value){
+                if(!is_array($value)) break;
                 if($value['url'] == $key ) {
                     $lista = $value;
                     break;
@@ -79,10 +80,9 @@ class MyPageController
                 }
             }
         }
-
         if( isset($lista['class']) ){
             return $lista['class'];
         }
-        return self::$DefaultClasseForCurrentPage;
+        return self::$DefaultClassForCurrentPage;
     }
 }
