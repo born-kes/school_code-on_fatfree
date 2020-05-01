@@ -52,10 +52,4 @@ class MainController {
         echo \Template::instance()->render("layout.html");
     }
 
-    public static function error( $f3 )
-    {
-        while (ob_get_level())
-            ob_end_clean();
-        echo $f3->get('ERROR.text');
-    }
 } 
