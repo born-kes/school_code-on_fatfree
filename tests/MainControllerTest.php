@@ -17,11 +17,27 @@ class MainControllerTest extends TestCase
 
     public function testIndexReplyToUser()
     {
+
+
         ob_start();
             v1\MainController::index($this->f3);
         $html = ob_get_contents();
         ob_end_clean();
 
         $this->assertNotEmpty($html);
+    }
+
+    public function testMockClass ()
+    {
+        $MyPageController = $this->createMock(\v1\MyPageController::class);
+        $MyPageController->method('getPageList')
+            ->willReturn([]);
+        $MyPageController->method('getClassForCurrentPage')
+            ->willReturn('Home');
+
+
+        $Home = $this->createMock('Home');
+
+        
     }
 }
