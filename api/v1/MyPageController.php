@@ -1,10 +1,13 @@
 <?php
 namespace v1;
 
-class MyPageController
+use Base;
+use v1\interfaces\PageControllerInterface;
+
+class MyPageController implements PageControllerInterface
 {
-    private static $DefaultClassForCurrentPage = 'Home';
-    private static $menuLinks = [
+    private $DefaultClassForCurrentPage = 'Home';
+    private $menuLinks = [
         [
             'text' => 'Archiwum',
             'url' => [
@@ -36,23 +39,47 @@ class MyPageController
             'url' => 'Blog'
         ]
     ];
-    private static $navArray = null;
+    private $navArray = null;
+    private $f3;
+    private $pageController;
 
-    public static function getPageList()
+
+    /**
+     * @param $f3 Base
+     */
+    public
+    function __construct(Base $f3)
     {
-        if (self::$navArray == null) {
-            self::$navArray = self::createPageList (self::$menuLinks);
-        }
-        return self::$navArray;
+        $this->f3 = $f3;
+
+        $this->pageController = $this->getClassForCurrentPage();
     }
 
-    private static function createPageList ($menuLinks)
+    /**
+     * @return array|null
+     */
+    public
+    function getPageList()
+    {
+        if ($this->navArray == null) {
+            $this->navArray = $this->createPageList ($this->menuLinks);
+        }
+        return $this->navArray;
+    }
+
+    /**
+     * @param $menuLinks
+     * @return array
+     */
+    private
+    function createPageList ($menuLinks)
     {
         $pageList = [];
         foreach ($menuLinks as $name => $value) {
 
             $text = $value['text'];
-             $url = is_array($value['url'])? self::createPageList ($value['url']):$value['url'];
+            /** @var array $value */
+            $url = is_array($value['url'])? $this->createPageList ($value['url']): $value['url'];
 
             $pageList[$name] = [
                 'text' => $text,
@@ -63,26 +90,63 @@ class MyPageController
         return $pageList;
     }
 
-    public static function getClassForCurrentPage($ActivePage)
+    /**
+     * @return v1\interfaces\PageInterface class
+     */
+    private
+    function getClassForCurrentPage()
     {
-        $lista = self::$menuLinks;
+        $lista = $this->menuLinks;
+        $ActivePage = $this->f3->get('PARAMS.0');
         $accessPath = explode('/', $ActivePage);
 
         foreach ($accessPath as $key) {
-            if($key == '') continue;
-            foreach ($lista as $value){
+            foreach ($lista as $value) {
                 if(!is_array($value)) break;
                 if($value['url'] == $key ) {
                     $lista = $value;
                     break;
-                }else if( is_array($value['url']) && $value['text'] == $key ){
+                } else if( is_array($value['url']) && $value['text'] == $key ) {
                     $lista = $value['url'];
+                    break;
                 }
             }
         }
-        if( isset($lista['class']) ){
-            return $lista['class'];
+        if( isset($lista['class']) ) {
+            return $this->checkingClassController ($lista['class']);
         }
-        return self::$DefaultClassForCurrentPage;
+        return $this->checkingClassController ( $this->DefaultClassForCurrentPage );
+    }
+
+    /**
+     * @param $NameClass
+     * @return class v1\interfaces\PageInterface
+     */
+    private
+    function checkingClassController ($NameClass)
+    {
+        $namespacePage = __NAMESPACE__ . "\\Page\\";
+        $pathClass = "{$namespacePage}{$NameClass}";
+
+
+        if(!class_exists($pathClass) || !in_array("v1\interfaces\PageInterface", class_implements($pathClass))) {
+            $pathClass = "{$namespacePage}{$this->DefaultClassForCurrentPage}";
+        }
+        return new $pathClass($this->f3) ;
+    }
+
+    /**
+     * @return string|callable|void
+     */
+    public
+    function getContentFromControllerClass()
+    {
+        ob_start();
+        $content = $this->pageController->index();
+
+        $content = $content ? $content : ob_get_contents();
+        ob_end_clean();
+
+        return $content;
     }
 }
