@@ -19,7 +19,6 @@ if (defined('CONTROLLER_PAGE') && defined('CONTROLLER_VIEW')) {
             $controllerPage = __NAMESPACE__ . '\\' . CONTROLLER_PAGE;
             /** @var MyPageController $controllerPage */
             $this->pages = new $controllerPage ($f3);
-            $this->pages->
 
             /** @var ViewController $viewController */
             $viewController = __NAMESPACE__ . '\\' . CONTROLLER_VIEW;
