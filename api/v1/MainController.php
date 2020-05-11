@@ -1,12 +1,13 @@
 <?php
 namespace v1;
-if (defined('CONTROLLER_PAGE') && defined('CONTROLLER_VIEW')) {
 
     class MainController implements interfaces\ControllerInterface
     {
 
         private $pageController;
+        /** @var \v1\MyPageController */
         private $pages;
+        /** @var \v1\ViewController */
         private $view;
 
         /**
@@ -16,12 +17,10 @@ if (defined('CONTROLLER_PAGE') && defined('CONTROLLER_VIEW')) {
         function __construct(\Base $f3)
         {
 
-            $controllerPage = __NAMESPACE__ . '\\' . CONTROLLER_PAGE;
-            /** @var MyPageController $controllerPage */
+            $controllerPage = $f3->get('CONTROLLER_PAGE');
             $this->pages = new $controllerPage ($f3);
 
-            /** @var ViewController $viewController */
-            $viewController = __NAMESPACE__ . '\\' . CONTROLLER_VIEW;
+            $viewController = $f3->get('CONTROLLER_VIEW');
             $this->view = new $viewController($f3);
 
         }
@@ -33,6 +32,5 @@ if (defined('CONTROLLER_PAGE') && defined('CONTROLLER_VIEW')) {
         {
            echo $this->view->index ( $this->pages );
         }
-    }
 
 }

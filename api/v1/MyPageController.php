@@ -125,8 +125,8 @@ class MyPageController implements PageControllerInterface
     private
     function checkingClassController ($NameClass)
     {
-        $namespacePage = __NAMESPACE__ . "\\Page\\";
-        $pathClass = "{$namespacePage}{$NameClass}";
+        $namespacePage = $this->f3->get('NAMESPACE_PAGE');
+        $pathClass = "{$namespacePage}\\{$NameClass}";
 
 
         if(!class_exists($pathClass) || !in_array("v1\interfaces\PageInterface", class_implements($pathClass))) {
