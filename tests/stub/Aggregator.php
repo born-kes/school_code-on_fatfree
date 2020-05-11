@@ -3,47 +3,74 @@
 namespace stub;
 
 
- class Aggregator
+class Aggregator
 {
-     /**
-      * @var Class
-      */
-    private static $Class;
-     /**
-      * @var array
-      */
+    /**
+     * This variable has data returned if it invokes the appropriate class
+     * @var array
+     */
     private static $config = [];
-     /**
-      * @var array
-      */
-     private static $call = [];
+    /**
+     *  This variable has data who call to aggregator
+     *
+     * @var array
+     */
+    private static $call = [];
 
-     public static function getConfigParam ( $method, $arg=null )
+    /**
+     * Have data to returned if first you implement by SetConfigByTests
+     *
+     * @param $_method_
+     * @param null $arg
+     * @return mixed|null
+     */
+    public static function getConfigParam ($_method_, $arg=null )
     {
-      var_dump( self::$call[] = [$method, $arg ] );
 
-        if ( isset (self::$config[$method]) ){
-            return self::$config[$method];
+        self::$call[] = "{$_method_}" . (is_Null($arg)?'':" => {$arg}");
+
+        if ( isset (self::$config[$_method_]) ){
+            return self::$config[$_method_];
         }else{
-            return 'null';
+            return null;
         }
     }
 
-     public static function setConfigByTests ( $args )
-     {
-         self::$config = $args;
-     }
 
-     public static function getAggregatorCallByTest()
-     {
-         return self::$call;
-     }
+    /**
+     * Sets Config returned by getConfigParam
+     *
+     * @param array $args
+     */
+    public static function setConfigByTests (array $args )
+    {
+        self::$config = $args;
+    }
 
-     private function __construct( )
-     {}
+    /**
+     * Returns who is calling the aggregator, or who is calling the next one
+     *
+     * @param Integer|null $id
+     * @return array|mixed|null
+     */
+    public static function getAggregatorCallByTest(int $id = null)
+    {
+        if (is_null($id))
+            return self::$call;
+        if ($id > count (self::$call)-1 )
+            return null;
+        return self::$call[$id];
 
-     public static function unsetAggregatro()
-     {
-         self::$config = self::$call = [];
-     }
- }
+    }
+
+    private function __construct( )
+    {}
+
+    /**
+     * Clearing Config and Call list
+     */
+    public static function unsetAggregator()
+    {
+        self::$config = self::$call = [];
+    }
+}

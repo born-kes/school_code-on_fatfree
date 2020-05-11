@@ -18,11 +18,13 @@
 	},
 	"autoload": {
 		"classmap": [
+			"tests/",
 			"src/",
 			"api/"
 		]
 	},
 	"scripts": {
+		"testAggregator": "php ./vendor/phpunit/phpunit/phpunit tests/stub/AggregatorTest.php --testdox",
 		"phpunit": "php ./vendor/phpunit/phpunit/phpunit tests",
 		"test": "@phpunit"
 	}
