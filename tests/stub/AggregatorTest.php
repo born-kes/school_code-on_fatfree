@@ -67,4 +67,17 @@ class AggregatorTest extends TestCase
         $this->assertEquals("class1", Aggregator::getAggregatorCallByTest(1) );
 
     }
+
+    public function testToString ()
+    {
+        $this->assertEquals('string', Aggregator::toString('string') );
+        $this->assertEquals('11.5', Aggregator::toString(11.5) );
+        $this->assertNotEquals('12', Aggregator::toString(11.9) );
+
+        $answerArray = "Array\n(\n)\n";
+        $this->assertEquals($answerArray, Aggregator::toString([]) );
+        $this->assertEquals('Base', Aggregator::toString(\Base::instance()) );
+        $this->assertEquals('function', Aggregator::toString(function(){} ) );
+
+    }
 }

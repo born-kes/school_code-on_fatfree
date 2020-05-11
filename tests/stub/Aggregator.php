@@ -102,6 +102,7 @@ class Aggregator
             case is_array($value):
             case is_bool($value):
                 ob_start();
+                print_r($value);
                 $string = ob_get_contents();
                 ob_end_clean();
                 return $string;
