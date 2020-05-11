@@ -25,6 +25,7 @@
 	},
 	"scripts": {
 		"testAggregator": "php ./vendor/phpunit/phpunit/phpunit tests/stub/AggregatorTest.php --testdox",
+		"testPage": "php ./vendor/phpunit/phpunit/phpunit tests/stub/PageTest.php --testdox",
 		"phpunit": "php ./vendor/phpunit/phpunit/phpunit tests",
 		"test": "@phpunit"
 	}

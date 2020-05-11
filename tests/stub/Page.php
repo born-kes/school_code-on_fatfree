@@ -1,6 +1,6 @@
 <?php
 
-namespace v1;
+namespace stub;
 
 use stub\Aggregator;
 use \v1\interfaces\PageInterface;
@@ -8,13 +8,18 @@ use \v1\interfaces\PageInterface;
 class Page implements PageInterface
 {
     /**
-     * Use MainController line::27
-     * @param \Base $f3
      * @return mixed|string
      */
-    static
-    function index( \Base $f3 )
+    function index()
     {
         return Aggregator::getConfigParam(__METHOD__);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function __construct(\Base $f3)
+    {
+        Aggregator::getConfigParam(__METHOD__, $f3);
     }
 }
