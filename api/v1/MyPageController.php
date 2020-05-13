@@ -20,6 +20,7 @@ class MyPageController implements PageControllerInterface
                     'url' => 'Function'
                 ],
                 [
+                    'class' => 'Lib',
                     'text' => 'Library',
                     'url' => 'lib'
                 ],
@@ -72,7 +73,7 @@ class MyPageController implements PageControllerInterface
      * @return array
      */
     private
-    function createPageList ($menuLinks)
+    function createPageList (array $menuLinks = []) : array
     {
         $pageList = [];
         foreach ($menuLinks as $name => $value) {
@@ -91,7 +92,7 @@ class MyPageController implements PageControllerInterface
     }
 
     /**
-     * @return v1\interfaces\PageInterface class
+     * @return class v1\interfaces\PageInterface
      */
     private
     function getClassForCurrentPage()
@@ -128,9 +129,8 @@ class MyPageController implements PageControllerInterface
         $namespacePage = $this->f3->get('NAMESPACE_PAGE');
         $pathClass = "{$namespacePage}\\{$NameClass}";
 
-
         if(!class_exists($pathClass) || !in_array("v1\interfaces\PageInterface", class_implements($pathClass))) {
-            $pathClass = "{$namespacePage}{$this->DefaultClassForCurrentPage}";
+            $pathClass = "{$namespacePage}\\{$this->DefaultClassForCurrentPage}";
         }
         return new $pathClass($this->f3) ;
     }

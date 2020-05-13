@@ -23,3 +23,16 @@ class Page implements PageInterface
         Aggregator::getConfigParam(__METHOD__, $f3);
     }
 }
+class Home extends Page {
+    function index()
+    {
+        return Aggregator::getConfigParam(__METHOD__);
+    }
+}
+class Generator extends Page {
+    function index()
+    {
+        return Aggregator::getConfigParam(__METHOD__);
+    }
+}
+class Lib {}

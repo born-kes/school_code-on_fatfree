@@ -24,6 +24,7 @@
 		]
 	},
 	"scripts": {
+		"testMyPageController": "php ./vendor/phpunit/phpunit/phpunit tests/stub/MyPageControllerTest.php --testdox",
 		"testAggregator": "php ./vendor/phpunit/phpunit/phpunit tests/stub/AggregatorTest.php --testdox",
 		"testPage": "php ./vendor/phpunit/phpunit/phpunit tests/stub/PageTest.php --testdox",
 		"testController": "php ./vendor/phpunit/phpunit/phpunit tests/MainControllerTest.php --testdox",
