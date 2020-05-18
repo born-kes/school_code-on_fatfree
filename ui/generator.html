@@ -14,8 +14,96 @@
 
     /*form #testClassName:before {content: "class "; color: #cc7832;font-weight: 500;}*/
     .form {min-height: 300px;width: 100%;}.form textarea {height: 300px;width: 100%;}
+    label{display: none;}
+    input, select{border: 0px;}
+    .inClass {margin-left: 5px;}
 </style>
+    <template id="headFile">
+    <label for="">namespace:</label><input >
+    <br>
+    <br>
+    </template>
 
+    <template id="headClass">
+    <label for="">Description Class</label>
+        <input placeholder="Description Class">
+    <br>
+    <select>
+        <option>Class</option>
+        <option>interface</option>
+        <option>abstract class</option>
+    </select>
+    <label for="">Name Class:</label><input placeholder="Name Class" title="Name Class" >
+    <select>
+        <option></option>
+        <option>extends</option>
+    </select>
+    <select>
+        <option>interface...</option>
+        <option>abstract class</option>
+        <option>Class</option>
+    </select>
+    <input  placeholder="Name Class" title="Name Class" >
+        <!-- interface abstract class Class  -->
+    <select>
+        <option></option>
+        <option>implements </option>
+    </select>
+    <input>
+    <br>{
+    <div class="inClass">
+    <br> {{bodyClass}}
+    </div>}
+    </template>
+
+    <template id="headClassParam">
+    <select>
+        <optgroup label="noStatic"></optgroup>
+        <option>private</option>
+        <option>public</option>
+        <option>protected</option>
+        <optgroup label="static">Static</optgroup>
+        <option>const</option>
+        <option>static</option>
+    </select>
+    <label for="">Param Class </label>
+        <input  placeholder="Param Class " title="Param Class " >
+    = (
+    <input placeholder="type">)
+    <input placeholder="Value">
+    <!-- public private protected -->
+    <!-- static const -->
+    <br>
+    </template>
+
+    <template id="bodyClassConstructor">
+    <br>
+
+    <label for="">Description constructor</label><input placeholder="Description constructor">
+    <br>
+    <label for="">constructor Class</label><input placeholder="constructor Class" >
+    (
+    <label for="">Param</label><input placeholder="Param">
+    )
+
+    <br>{
+        {{body}}
+    <br>}
+    <br>
+    </template>
+
+    <template id="bodyClassMethod">
+    <label for="">Description Function</label><input placeholder="Description Function">
+    <br> Function:
+    <label for="">Function Name</label><input placeholder="Function Name">
+ (
+    <label for="">in Param: </label><input placeholder="in Param">
+) :
+    <label for="">return: </label><input placeholder="Return">
+
+    <br>{
+    <br>}
+    </template>
 
 <form method="POST" name="x">
     <div class="form">&lt;?php
