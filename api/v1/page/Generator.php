@@ -50,6 +50,8 @@ class Generator implements PageInterface
                             'js' => [
                                 'vendor/npm-asset/codemirror/addon/hint/show-hint',
                                 'vendor/npm-asset/codemirror/addon/display/fullscreen',
+                                'vendor/npm-asset/codemirror/addon/edit/closetag',
+                                'vendor/npm-asset/codemirror/addon/edit/closebrackets',
                             ],
                             'css' => [
                                 'vendor/npm-asset/codemirror/addon/hint/show-hint',
@@ -58,8 +60,12 @@ class Generator implements PageInterface
                             'CodeMirrorOptions' => [
                                 'mode.extraKeys["Ctrl-Space"] = "autocomplete";
                                 mode.hintOptions = {hint: synonyms};',
+                                // fullscreen
                                 'mode.extraKeys["F11"] = function(cm) {cm.setOption("fullScreen", !cm.getOption("fullScreen"));};',
                                 'mode.extraKeys["Esc"] = function(cm) {if(cm.getOption("fullScreen"))cm.setOption("fullScreen", false);};',
+                                // autoCloseTags
+                                'mode.autoCloseTags = true;',
+                                'mode.autoCloseBrackets = true;',
 
                             ]
                         ];
