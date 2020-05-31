@@ -9,6 +9,13 @@
 <script src="{{@CodeMirror}}/mode/clike/clike.js"></script>
 <script src="{{@CodeMirror}}/mode/PHP/php.js"></script>
 
+<repeat group="{{ @css }}" value="{{ @row }}" >
+	<link  href="{{ @row }}.css" rel="stylesheet">
+</repeat>
+<repeat group="{{ @js }}" value="{{ @row }}" >
+	<script src="{{ @row }}.js"></script>
+</repeat>
+
 <form><textarea id="code" name="code">
 &lt;?php
 $a = array('a' => 1, 'b' => 2, 3 => 'c');
@@ -34,11 +41,36 @@ function hello($who) {
         mode: "application/x-httpd-php",
         indentUnit: 4,
         indentWithTabs: true,
+        extraKeys: {}
     };
+    if (typeof Promise !== "undefined") {
+        let comp = [
+            ["function", "function () \n{\n}"],
+        ];
+
+        function synonyms(cm, option) {
+            return new Promise(function (accept) {
+                setTimeout(function () {
+                    let cursor = cm.getCursor(), line = cm.getLine(cursor.line);
+                    let start = cursor.ch, end = cursor.ch;
+                    while (start && /\w/.test(line.charAt(start - 1))) --start;
+                    while (end < line.length && /\w/.test(line.charAt(end))) ++end;
+                    let word = line.slice(start, end).toLowerCase();
+                    for (let i = 0; i < comp.length; i++) if (comp[i].indexOf(word) != -1)
+                        return accept({
+                            list: comp[i],
+                            from: CodeMirror.Pos(cursor.line, start),
+                            to: CodeMirror.Pos(cursor.line, end)
+                        });
+                    return accept(null)
+                }, 100)
+            })
+        }
+    }
+    <repeat group="{{ @CodeMirrorOptions }}" value="{{ @row }}" >
+        {{ @row }}
+    </repeat>
+
     let myCodeMirror = CodeMirror.fromTextArea(instance, mode);
     myCodeMirror.setSize(null, '60%');
-
-
-    myCodeMirror.foldCode(CodeMirror.Pos(13, 0));
-    myCodeMirror.foldCode(CodeMirror.Pos(1, 0));
 </script>

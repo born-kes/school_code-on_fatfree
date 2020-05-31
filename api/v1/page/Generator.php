@@ -47,6 +47,16 @@ class Generator implements PageInterface
                     function() {
                         $data = [
                             'CodeMirror' => 'vendor/npm-asset/codemirror',
+                            'js' => [
+                                'vendor/npm-asset/codemirror/addon/hint/show-hint',
+                            ],
+                            'css' => [
+                                'vendor/npm-asset/codemirror/addon/hint/show-hint',
+                            ],
+                            'CodeMirrorOptions' => [
+                                'mode.extraKeys["Ctrl-Space"] = "autocomplete";
+                                mode.hintOptions = {hint: synonyms};',
+                            ]
                         ];
 
                         return \Template::instance()->render('generator3.html',null, $data);
