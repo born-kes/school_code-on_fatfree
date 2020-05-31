@@ -49,13 +49,18 @@ class Generator implements PageInterface
                             'CodeMirror' => 'vendor/npm-asset/codemirror',
                             'js' => [
                                 'vendor/npm-asset/codemirror/addon/hint/show-hint',
+                                'vendor/npm-asset/codemirror/addon/display/fullscreen',
                             ],
                             'css' => [
                                 'vendor/npm-asset/codemirror/addon/hint/show-hint',
+                                'vendor/npm-asset/codemirror/addon/display/fullscreen',
                             ],
                             'CodeMirrorOptions' => [
                                 'mode.extraKeys["Ctrl-Space"] = "autocomplete";
                                 mode.hintOptions = {hint: synonyms};',
+                                'mode.extraKeys["F11"] = function(cm) {cm.setOption("fullScreen", !cm.getOption("fullScreen"));};',
+                                'mode.extraKeys["Esc"] = function(cm) {if(cm.getOption("fullScreen"))cm.setOption("fullScreen", false);};',
+
                             ]
                         ];
 
