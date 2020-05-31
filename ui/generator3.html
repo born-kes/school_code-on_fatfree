@@ -73,4 +73,9 @@ function hello($who) {
 
     let myCodeMirror = CodeMirror.fromTextArea(instance, mode);
     myCodeMirror.setSize(null, '60%');
+
+    <repeat group="{{ @afterCodeMirror }}" value="{{ @row }}" >
+        {{ @row }}
+    </repeat>
+
 </script>

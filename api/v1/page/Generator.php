@@ -52,6 +52,14 @@ class Generator implements PageInterface
                                 'vendor/npm-asset/codemirror/addon/display/fullscreen',
                                 'vendor/npm-asset/codemirror/addon/edit/closetag',
                                 'vendor/npm-asset/codemirror/addon/edit/closebrackets',
+
+                                'vendor/npm-asset/codemirror/addon/fold/foldcode',
+                                'vendor/npm-asset/codemirror/addon/fold/foldgutter',
+                                'vendor/npm-asset/codemirror/addon/fold/brace-fold',
+                                'vendor/npm-asset/codemirror/addon/fold/xml-fold',
+                                'vendor/npm-asset/codemirror/addon/fold/indent-fold',
+                                'vendor/npm-asset/codemirror/addon/fold/markdown-fold',
+                                'vendor/npm-asset/codemirror/addon/fold/comment-fold',
                             ],
                             'css' => [
                                 'vendor/npm-asset/codemirror/addon/hint/show-hint',
@@ -67,6 +75,14 @@ class Generator implements PageInterface
                                 'mode.autoCloseTags = true;',
                                 'mode.autoCloseBrackets = true;',
 
+                                'mode.extraKeys["Ctrl-Q"] = function(cm){ cm.foldCode(cm.getCursor()); };',
+                                'mode.foldGutter = true;',
+                                'mode.gutters = ["CodeMirror-linenumbers", "CodeMirror-foldgutter"];',
+                            ],
+                            'afterCodeMirror'=> [
+                                'myCodeMirror.foldCode(CodeMirror.Pos(3, 0));',
+                                'myCodeMirror.foldCode(CodeMirror.Pos(5, 0));',
+                                'myCodeMirror.foldCode(CodeMirror.Pos(10, 0));'
                             ]
                         ];
 
