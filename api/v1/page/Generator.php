@@ -17,11 +17,37 @@ class Generator implements PageInterface
     public function index ()
     {
 
+        /**
+         * verification user request
+         */
         $this->validatePost();
+        /**
+         * selected editor by the user
+         */
+        return $this->returnPage(
+            $this->f3->get('PARAMS.command')
+        );
+    }
+
+    private function returnPage(string $command = null)
+    {
+        switch ( $command ):
+            case 1:
+                return function (){ return \Template::instance()->render('generator0.html' ); };
+            default:
         return
             function() {
-           return \Template::instance()->render('generator.html');
+                $BASE = $this->f3->get('BASE');
+                $PARAMS=  $this->f3->get('PARAMS.page');
+
+            $data = ['menuLinks'=>[
+                ['url'=>"$BASE/$PARAMS/1", 'text'=>'Generowanie nowej Class - projekt 1'],
+            ]
+            ];
+
+           return \Template::instance()->render('generator.html', null, $data );
         };
+        endswitch;
     }
 
     /**
