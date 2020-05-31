@@ -10,7 +10,8 @@ class Generator implements PageInterface
      */
     private $f3;
     private $listGenerator = [
-        ['url'=>"1", 'text'=>'Generowanie nowej Class - projekt 1'],
+        ['url'=>"1", 'text'=>'Generowanie nowej Class - projekt 1 - oparty o "contenteditable"'],
+        ['url'=>"2", 'text'=>'Generowanie nowej Class - projekt 2 - oparty o inputy'],
     ];
 
     /**
@@ -35,8 +36,11 @@ class Generator implements PageInterface
     private function returnPage(string $command = null)
     {
         switch ( $command ):
-            case 1:
-                return function (){ return \Template::instance()->render('generator0.html' ); };
+            case $this->listGenerator[0]['url']:
+                return function (){ return \Template::instance()->render('generator1.html' ); };
+            case $this->listGenerator[1]['url']:
+                return function() { return \Template::instance()->render('generator2.html'); };
+                break;
             default:
         return
             function() {

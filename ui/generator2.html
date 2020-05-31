@@ -1,0 +1,43 @@
+<script src="https://code.jquery.com/jquery-2.2.0.js"
+        crossorigin="anonymous"></script>
+
+<form role="form" action="" method="post">
+    <div>
+        <legend>
+           New Plugins
+        </legend>
+        <div class="">
+            <div>
+                <div class="form-group" >
+                    <label class="control-label" for="alpaca3">Name</label>
+                    <input type="text" id="alpaca3" name="nameFile" class="form-control" autocomplete="off" value="{{@POST.nameFile}}">
+                </div>
+            </div>
+            <div class="">
+                <div class="form-group"  >{{var_dump(@_SERVER.REQUEST_METHOD )}}
+                    <label class="control-label " for="alpaca4">New Files Code </label>
+                    <select id="alpaca4" readonly="readonly" multiple="multiple" name="typeFile" class=" form-control" >
+                        <option value="php" selected="selected">php</option>
+                        <option value="js">js</option>
+                        <option value="html">html</option>
+                        <option value="css">css</option>
+                    </select>
+                    <input type="hidden" name="idForm" value="{{@form.idForm}}">
+                </div>
+            </div>
+            <div class="custom-control">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" id="alpaca_php" name="filePHP" class="custom-control-input" value="{{@POST.filePHP}}">
+                    <label class="custom-control-label" for="alpaca_php">PHP</label>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="alpaca5">Your Name</label>
+                    <input type="text" id="alpaca5" name="username" class="form-control" autocomplete="identifier" value="{{@POST.username}}">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="">
+        <button data-key="submit" type="submit" class=" btn btn-default" button-pushed="true">Submit</button>
+    </div>
+</form>
