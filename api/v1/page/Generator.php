@@ -12,6 +12,7 @@ class Generator implements PageInterface
     private $listGenerator = [
         ['url'=>"1", 'text'=>'Generowanie nowej Class - projekt 1 - oparty o "contenteditable"'],
         ['url'=>"2", 'text'=>'Generowanie nowej Class - projekt 2 - oparty o inputy'],
+        ['url'=>"CodeMirror", 'text'=>'Edytor oparty o CodeMirror'],
     ];
 
     /**
@@ -40,6 +41,16 @@ class Generator implements PageInterface
                 return function (){ return \Template::instance()->render('generator1.html' ); };
             case $this->listGenerator[1]['url']:
                 return function() { return \Template::instance()->render('generator2.html'); };
+                break;
+            case $this->listGenerator[2]['url']:
+                return
+                    function() {
+                        $data = [
+                            'CodeMirror' => 'vendor/npm-asset/codemirror',
+                        ];
+
+                        return \Template::instance()->render('generator3.html',null, $data);
+                    };
                 break;
             default:
         return
