@@ -1,0 +1,24 @@
+
+<ul class="navbar-nav mr-auto">
+    <repeat group="{{ @menuLinks }}" value="{{ @row }}" >
+        <check if="{{ is_array(@row.url) }}">
+            <true>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle {{ @row.text==@PARAMS.page?' active':'' }}" href="{{ @row.text }}" id="navbarDropdown{{ @i }}"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{ @row.text }}</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown{{ @i++ }}">
+                        <repeat group="{{ @row.url }}" value="{{ @item }}" >
+                            <a class="dropdown-item{{ @item.url==@PARAMS.command?' active':'' }}" href="{{ @row.text.'/'.@item.url }}">{{ @item.text }}</a>
+                        </repeat>
+                    </div>
+                </li>
+            </true>
+            <false>
+                <li class="nav-item">
+                    <a class="nav-link{{ @row.url==@PARAMS.page?' active':'' }}" href="{{ @row.url }}" >{{ @row.text }}
+                        <span class="sr-only">(current)</span></a>
+                </li>
+            </false>
+        </check>
+    </repeat>
+</ul>
