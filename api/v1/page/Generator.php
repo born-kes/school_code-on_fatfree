@@ -9,6 +9,9 @@ class Generator implements PageInterface
      * @var \Base
      */
     private $f3;
+    private $listGenerator = [
+        ['url'=>"1", 'text'=>'Generowanie nowej Class - projekt 1'],
+    ];
 
     /**
      * @param $f3 \Base
@@ -39,10 +42,13 @@ class Generator implements PageInterface
             function() {
                 $BASE = $this->f3->get('BASE');
                 $PARAMS=  $this->f3->get('PARAMS.page');
+                $list = [];
 
-            $data = ['menuLinks'=>[
-                ['url'=>"$BASE/$PARAMS/1", 'text'=>'Generowanie nowej Class - projekt 1'],
-            ]
+                foreach ($this->listGenerator as $row )
+                    $list[] = ['url'=>"{$BASE}/{$PARAMS}/{$row['url']}", 'text'=> $row['text'] ] ;
+
+            $data = ['menuLinks'=>
+                $list
             ];
 
            return \Template::instance()->render('generator.html', null, $data );
