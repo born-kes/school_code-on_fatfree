@@ -64,6 +64,8 @@ class Generator implements PageInterface
                             'css' => [
                                 'vendor/npm-asset/codemirror/addon/hint/show-hint',
                                 'vendor/npm-asset/codemirror/addon/display/fullscreen',
+                                
+                                'vendor/npm-asset/codemirror/addon/fold/foldgutter',
                             ],
                             'CodeMirrorOptions' => [
                                 'mode.extraKeys["Ctrl-Space"] = "autocomplete";
