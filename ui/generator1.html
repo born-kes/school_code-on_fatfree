@@ -146,4 +146,11 @@
 
         return false;
     })
+    jQuery('[contenteditable]').click(function () {
+        var range = document.createRange();
+        range.selectNodeContents(this);
+        var sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+    });
 </script>
