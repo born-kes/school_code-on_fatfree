@@ -28,7 +28,6 @@
 	"autoload": {
 		"classmap": [
 			"tests/",
-			"src/",
 			"api/"
 		]
 	},
