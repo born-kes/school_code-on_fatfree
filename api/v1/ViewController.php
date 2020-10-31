@@ -32,7 +32,6 @@ class ViewController implements ViewControllerInterface
 
         $this->f3->set('navHtml', '/nav.html');
         $this->f3->set('menuLinks', array_merge($pages->getPageList(),[]));
-        var_dump('www', $pages->getContentFromControllerClass() );
         $this->f3->set('content', $pages->getContentFromControllerClass() );
 
         return \Template::instance()->render("layout.html");
