@@ -42,7 +42,7 @@ class Aggregator
      *
      * @param array $args
      */
-    public static function setConfigByTests (array $args )
+    public static function setConfigParams (array $args )
     {
         self::$config = $args;
     }
@@ -53,7 +53,7 @@ class Aggregator
      * @param Integer|null $id
      * @return array|mixed|null
      */
-    public static function getAggregatorCallByTest(int $id = null)
+    public static function retrieveAggregatorCallData(int $id = null)
     {
         if (is_null($id))
             return self::$call;
@@ -69,7 +69,7 @@ class Aggregator
     /**
      * Clearing Config and Call list
      */
-    public static function unsetAggregator()
+    public static function clineDataAggregator()
     {
         self::$config = self::$call = [];
     }

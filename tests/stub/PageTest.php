@@ -25,7 +25,7 @@ class PageTest extends TestCase
         /**
          * Sets Config by Stub Page
          */
-        Aggregator::setConfigByTests([
+        Aggregator::setConfigParams([
             'stub\Page::index' => 'test data Value'
         ]);
 

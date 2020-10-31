@@ -27,7 +27,7 @@ class MyPageControllerTest extends TestCase
         /** No Exist Page */
         $this->f3->mock('GET /xyz11');
 
-        Aggregator::unsetAggregator();
+        Aggregator::clineDataAggregator();
     }
 
     /**
@@ -70,12 +70,12 @@ class MyPageControllerTest extends TestCase
 
         /** Index return string by view */
         $expected = 'text from Page : Home';
-        Aggregator::setConfigByTests(['stub\Home::index' => $expected ]);
+        Aggregator::setConfigParams(['stub\Home::index' => $expected ]);
         $this->assertEquals($expected, $pageController->getContentFromControllerClass());
 
         /** Index return function by view */
         $expected2 = function () {};
-        Aggregator::setConfigByTests(['stub\Home::index' => $expected2]);
+        Aggregator::setConfigParams(['stub\Home::index' => $expected2]);
         $response = $pageController->getContentFromControllerClass();
 
         $this->assertEquals($expected2, $response);
@@ -90,7 +90,7 @@ class MyPageControllerTest extends TestCase
     function testGetContentFromExistClass ()
     {
         $expected = 'text from Page : Generator';
-        Aggregator::setConfigByTests(['stub\Generator::index'=> $expected ]);
+        Aggregator::setConfigParams(['stub\Generator::index'=> $expected ]);
 
         /** Exist Page */
         $this->f3->mock('GET /Generator ');
@@ -101,7 +101,7 @@ class MyPageControllerTest extends TestCase
 
         /** Index return function by view */
         $expected2 = function () {};
-        Aggregator::setConfigByTests(['stub\Generator::index'=> $expected2  ]);
+        Aggregator::setConfigParams(['stub\Generator::index'=> $expected2  ]);
         $response = $pageController->getContentFromControllerClass();
 
         $this->assertEquals($expected2, $response);
@@ -118,6 +118,6 @@ class MyPageControllerTest extends TestCase
 
         $this->assertNotInstanceOf('v1\interfaces\PageInterface', new Lib);
 
-        $this->assertEquals( "stub\Home::index", Aggregator::getAggregatorCallByTest(1) );
+        $this->assertEquals( "stub\Home::index", Aggregator::retrieveAggregatorCallData(1) );
     }
 }
