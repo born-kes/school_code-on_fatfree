@@ -1,5 +1,5 @@
 <?php
-namespace tests;
+namespace v1;
 use Base;
 use PHPUnit\Framework\TestCase;
 use stub\Aggregator;
