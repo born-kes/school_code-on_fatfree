@@ -1,55 +1,67 @@
 <?php
-namespace stub;
+namespace v1;
 
-use v1\MyPageController;
 use PHPUnit\Framework\TestCase;
+use stub\Aggregator;
 
-class MyPageControllerTest extends TestCase
+class PageControllerTest extends TestCase
 {
 
     /**
      * @var \Base
      */
     private $f3;
+    private $mock;
 
     function setUp(): void
     {
         $this->f3 = \Base::instance();
         $this->f3->set('QUIET',TRUE);
         $this->f3->config('config.ini');
-        $this->f3->set('NAMESPACE_PAGE', 'stub');
 
-        /** autoload file Pages and class in file
-         * stub Home, Generator
-         * and Fake Lib
-         */
-        new Page($this->f3);
-        /** No Exist Page */
-        $this->f3->mock('GET /xyz11');
-
+    }
+    protected function tearDown(): void
+    {
         Aggregator::clineDataAggregator();
     }
 
+    protected function getBaseMock($url = 'GET /')
+    {
+       return $this->f3->mock($url);
+    }
     /**
      *  Test implements Interface PageControllerInterface
+     * @test
      */
-    function testConstructor()
+    function WhenUrlNotExist_ShouldPageControllerReturnHomePage()
     {
-        $pageController = new MyPageController($this->f3);
+        # Arrange / Given
+        $thisUrlShouldNotExist = 'GET /xxxxxx_YYSYS';
 
+        # Act / When
+        $this->getBaseMock($thisUrlShouldNotExist);
+        $pageController = new PageController($this->f3);
+
+        #Assert / That
         $this->assertInstanceOf('v1\interfaces\PageControllerInterface', $pageController);
     }
 
     /**
      *  test createPageList and private getClassForCurrentPage
      * return list pages [ url => '...' , text => '...' ]
+     * @test
      */
-    function testGetPageList ()
+    function getPageListShouldReturnArrayHaveOnlyKeyUrlAndText ()
     {
-        $pageController = new MyPageController($this->f3);
+        # Arrange / Given
+        $pageController = new PageController($this->f3);
+
+        # Act / When
         $response = $pageController->getPageList();
 
+        #Assert / That
         $this->assertIsArray($response);
+
         foreach($response as $val ){
             $this->assertCount(2, $val );
             $this->assertArrayHasKey('url', $val);
@@ -59,26 +71,20 @@ class MyPageControllerTest extends TestCase
     }
 
     /**
-     * Test getContentFromControllerClass from not exist page
-     *
-     * $DefaultClassForCurrentPage = Home
-     * Stub/Home extends in Page file
+     * @test
      */
-    function testGetContentFromDefaultPage ()
+    function _getContentFromDefaultPage ()
     {
-        $pageController = new MyPageController($this->f3);
+        # Arrange / Given
+        $pageController = new PageController($this->f3);
+        $expected = 'Hello';
 
-        /** Index return string by view */
-        $expected = 'text from Page : Home';
-        Aggregator::setConfigParams(['stub\Home::index' => $expected ]);
-        $this->assertEquals($expected, $pageController->getContentFromControllerClass());
-
-        /** Index return function by view */
-        $expected2 = function () {};
-        Aggregator::setConfigParams(['stub\Home::index' => $expected2]);
+        # Act / When
         $response = $pageController->getContentFromControllerClass();
 
-        $this->assertEquals($expected2, $response);
+        #Assert / That
+        $this->assertEquals($expected, $response);
+
     }
 
     /**
@@ -87,7 +93,7 @@ class MyPageControllerTest extends TestCase
      * page Generator include Class Generator but
      * Stub/Generator extends in Page file
      */
-    function testGetContentFromExistClass ()
+    function t_estGetContentFromExistClass ()
     {
         $expected = 'text from Page : Generator';
         Aggregator::setConfigParams(['stub\Generator::index'=> $expected ]);
@@ -96,7 +102,7 @@ class MyPageControllerTest extends TestCase
         $this->f3->mock('GET /Generator ');
 
         /** Index return string by view */
-        $pageController = new MyPageController($this->f3);
+        $pageController = new PageController($this->f3);
         $this->assertEquals($expected, $pageController->getContentFromControllerClass());
 
         /** Index return function by view */
@@ -112,7 +118,7 @@ class MyPageControllerTest extends TestCase
      *
      * Fake class Lib in stub/Page file
      */
-    function testDefenseAgainstGetErrorClassContent () {
+    function t_estDefenseAgainstGetErrorClassContent () {
 
         $this->f3->mock('GET /Archiwum/lib ');
 

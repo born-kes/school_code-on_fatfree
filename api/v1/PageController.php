@@ -4,7 +4,7 @@ namespace v1;
 use Base;
 use v1\interfaces\PageControllerInterface;
 
-class MyPageController implements PageControllerInterface
+class PageController implements PageControllerInterface
 {
     private $DefaultClassForCurrentPage = 'Home';
     private $menuLinks = [
@@ -60,7 +60,7 @@ class MyPageController implements PageControllerInterface
      * @return array|null
      */
     public
-    function getPageList()
+    function getPageList() :array
     {
         if ($this->navArray == null) {
             $this->navArray = $this->createPageList ($this->menuLinks);
