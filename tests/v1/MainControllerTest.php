@@ -15,7 +15,7 @@ class MainControllerTest extends TestCase
         $this->f3->set('QUIET',TRUE);
         $this->f3->config('config.ini');
 
-        $this-> f3->set('CONTROLLER_PAGE', '\stub\PageController');
+        $this-> f3->set('CONTROLLER_PAGE', '\stub\FactoryPage');
         $this-> f3->set('CONTROLLER_VIEW', '\stub\ViewController');
 //        $this-> f3->set('NAMESPACE_PAGE', 'v1\Page');
     }
@@ -36,7 +36,7 @@ class MainControllerTest extends TestCase
             ['stub\ViewController::response' => 'xyz']
         );
         $respons = [
-            "stub\PageController::__construct => Base",
+            "stub\FactoryPage::__construct => Base",
             "stub\ViewController::__construct => Base"
         ];
 
@@ -77,8 +77,9 @@ class MainControllerTest extends TestCase
         $controller = new MainController($this->f3);
 
         ob_start();
-        $controller->response($this->f3);
-        $response = ob_get_contents();
+        $response = $controller->response($this->f3);
+        if( !$response )
+            $response = ob_get_contents();
         ob_end_clean();
 
         return $response;

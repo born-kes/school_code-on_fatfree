@@ -1,9 +1,9 @@
 <?php
 namespace stub;
 
-use v1\interfaces\PageControllerInterface;
+use v1\interfaces\FactoryPageInterface;
 
-class PageController implements PageControllerInterface
+class FactoryPage implements FactoryPageInterface
 {
     /**
      * @return array

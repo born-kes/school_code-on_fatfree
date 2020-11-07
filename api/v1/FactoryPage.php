@@ -2,9 +2,9 @@
 namespace v1;
 
 use Base;
-use v1\interfaces\PageControllerInterface;
+use v1\interfaces\FactoryPageInterface;
 
-class PageController implements PageControllerInterface
+class FactoryPage implements FactoryPageInterface
 {
     private $DefaultClassForCurrentPage = 'Home';
     private $menuLinks = [

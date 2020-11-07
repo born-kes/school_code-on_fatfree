@@ -4,7 +4,7 @@
 namespace v1;
 
 
-use v1\interfaces\PageControllerInterface;
+use v1\interfaces\FactoryPageInterface;
 use v1\interfaces\ViewControllerInterface;
 
 class ViewController implements ViewControllerInterface
@@ -24,10 +24,10 @@ class ViewController implements ViewControllerInterface
     }
 
     /**
-     * @param PageControllerInterface $pages
+     * @param FactoryPageInterface $pages
      * @return string
      */
-    public function response(PageControllerInterface $pages) : string
+    public function response(FactoryPageInterface $pages) : string
     {
 
         $this->f3->set('navHtml', '/nav.html');

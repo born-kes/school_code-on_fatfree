@@ -2,7 +2,7 @@
 namespace v1\interfaces;
 
 
-interface PageControllerInterface
+interface FactoryPageInterface
 {
 
     /**

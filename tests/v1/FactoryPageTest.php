@@ -4,7 +4,7 @@ namespace v1;
 use PHPUnit\Framework\TestCase;
 use stub\Aggregator;
 
-class PageControllerTest extends TestCase
+class FactoryPageTest extends TestCase
 {
 
     /**
@@ -40,10 +40,10 @@ class PageControllerTest extends TestCase
 
         # Act / When
         $this->getBaseMock($thisUrlShouldNotExist);
-        $pageController = new PageController($this->f3);
+        $pageController = new FactoryPage($this->f3);
 
         #Assert / That
-        $this->assertInstanceOf('v1\interfaces\PageControllerInterface', $pageController);
+        $this->assertInstanceOf('v1\interfaces\FactoryPageInterface', $pageController);
     }
 
     /**
@@ -54,7 +54,7 @@ class PageControllerTest extends TestCase
     function getPageListShouldReturnArrayHaveOnlyKeyUrlAndText ()
     {
         # Arrange / Given
-        $pageController = new PageController($this->f3);
+        $pageController = new FactoryPage($this->f3);
 
         # Act / When
         $response = $pageController->getPageList();
@@ -76,7 +76,7 @@ class PageControllerTest extends TestCase
     function _getContentFromDefaultPage ()
     {
         # Arrange / Given
-        $pageController = new PageController($this->f3);
+        $pageController = new FactoryPage($this->f3);
         $expected = 'Hello';
 
         # Act / When
@@ -102,7 +102,7 @@ class PageControllerTest extends TestCase
         $this->f3->mock('GET /Generator ');
 
         /** Index return string by view */
-        $pageController = new PageController($this->f3);
+        $pageController = new FactoryPage($this->f3);
         $this->assertEquals($expected, $pageController->getContentFromControllerClass());
 
         /** Index return function by view */

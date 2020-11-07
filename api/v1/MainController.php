@@ -1,7 +1,7 @@
 <?php
 namespace v1;
 use Base;
-use v1\interfaces\PageControllerInterface;
+use v1\interfaces\FactoryPageInterface;
 use v1\interfaces\PageInterface;
 use v1\interfaces\ViewController;
 
@@ -11,7 +11,7 @@ use v1\interfaces\ViewController;
  */
     class MainController implements interfaces\ControllerInterface
     {
-        /** @var PageControllerInterface */
+        /** @var FactoryPageInterface */
         private $pageController;
         /** @var PageInterface */
         private $pages;
@@ -39,7 +39,7 @@ use v1\interfaces\ViewController;
         public function response(Base $f3)
         {
             $this->pages =$this->pageController;
-           echo $this->responseView($this->view);
+           return $this->responseView($this->view);
         }
 
         /**

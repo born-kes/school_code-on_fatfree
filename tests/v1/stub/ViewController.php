@@ -4,12 +4,12 @@
 namespace stub;
 
 use Base;
-use v1\interfaces\PageControllerInterface;
+use v1\interfaces\FactoryPageInterface;
 use v1\interfaces\ViewControllerInterface;
 
 class ViewController implements ViewControllerInterface
 {
-    public function response(PageControllerInterface $pages): string
+    public function response(FactoryPageInterface $pages): string
     {
         return (string) Aggregator::getConfigParam(__METHOD__, $pages);
     }
