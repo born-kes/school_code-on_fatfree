@@ -1,0 +1,12 @@
+RewriteEngine on
+
+ RewriteCond %{REQUEST_FILENAME} !-l 
+ RewriteCond %{REQUEST_FILENAME} !-d
+ RewriteCond %{REQUEST_FILENAME} !-f
+
+ RewriteCond %{REQUEST_URI} !(public/)$ [NC]
+ RewriteRule ^(.*)$ ../index.php?url=%{REQUEST_URI}&rewrite1=$1 [QSA,L]
+
+ErrorDocument 403 ../index.php?error=403
+ErrorDocument 404 ../index.php?error=404
+ErrorDocument 500 ../index.php?error=500

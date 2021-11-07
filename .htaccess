@@ -9,8 +9,19 @@ RewriteEngine On
 
 RewriteRule ^(app|tmp)\/|\.ini$ - [R=404]
 
-RewriteCond %{REQUEST_FILENAME} !-l
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} \.(css|js|html?|png|gif|jpg|jpe?g|svg|xls.?|pdf|docx?|eot|ttf|woff2?)$ [NC]
+
+RewriteRule (.*\.[css|js|html?|png|gif|jpg|jpe?g|svg|xls.?|pdf|docx?|eot|ttf|woff2?]+) public/$1?a [QSA,L]
+
+RewriteCond %{REQUEST_URI} \.(css|js|html?|png|gif|jpg|jpe?g|svg|xls.?|pdf|docx?|eot|ttf|woff2?) [NC]
+#RewriteCond %{REQUEST_URI} !public/ [NC]
+RewriteRule (.*\.[css|js|html?|png|gif|jpg|jpe?g|svg|xls.?|pdf|docx?|eot|ttf|woff2?]+) public/$1 [QSA,L]
+
+RewriteCond %{REQUEST_URI} !\.(css|js|html?|png|gif|jpe?g|svg|xls.?|pdf|docx?|eot|ttf|woff2?)$ [NC]
+RewriteRule ^(.*)$ index.php?REQUEST_FILENAME=%{REQUEST_FILENAME}&data=$1&REQUEST_URI=%{REQUEST_URI} [QSA,L]
 RewriteRule .* index.php [L,QSA]
-RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization},L]
+
+ErrorDocument 403 index.php?error=403
+ErrorDocument 404 index.php?error=404
+ErrorDocument 500 index.php?error=500
