@@ -4,12 +4,13 @@ use Base;
 use v1\interfaces\FactoryPageInterface;
 use v1\interfaces\PageInterface;
 use v1\interfaces\ViewController;
+use v1\interfaces\ControllerInterface;
 
 /**
  * Class MainController
  * @package v1
  */
-    class MainController implements interfaces\ControllerInterface
+    class MainController implements ControllerInterface
     {
         /** @var FactoryPageInterface */
         private $pageController;
@@ -17,6 +18,8 @@ use v1\interfaces\ViewController;
         private $pages;
         /** @var ViewController */
         private $view;
+        /** @var ControllerDB|ControllerInterface */
+        private $db;
 
         /**
          * @param $f3 Base
@@ -24,6 +27,18 @@ use v1\interfaces\ViewController;
         public
         function __construct(Base $f3)
         {
+            if ( $db = $f3->get('CONTROLLER_DATABASE') )  {
+                if( class_exists($db) ) {
+                    try {
+                    //    $this->db = $db::response($f3);
+                       $this->db = call_user_func_array(array($db, 'response'), [$f3]);
+                    } catch (\Exception $e) {
+                        self::log( 'Connection error with the data base.' );
+                    }
+                }
+            } else {
+                self::log( 'Not found class: '. $f3->get('CONTROLLER_DATABASE') );
+            }
 
             $controllerPage = $f3->get('CONTROLLER_PAGE');
             $this->pageController = new $controllerPage ($f3);
@@ -39,7 +54,7 @@ use v1\interfaces\ViewController;
         public function response(Base $f3)
         {
             $this->pages =$this->pageController;
-           return $this->responseView($this->view);
+           echo $this->responseView($this->view);
         }
 
         /**
@@ -51,4 +66,8 @@ use v1\interfaces\ViewController;
             return $viewController->response( $this->pages );
         }
 
+        public static function log($str)
+        {
+
+        }
 }
