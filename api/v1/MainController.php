@@ -1,6 +1,6 @@
 <?php
 namespace v1;
-use Base;
+use \Base;
 use v1\interfaces\FactoryPageInterface;
 use v1\interfaces\PageInterface;
 use v1\interfaces\ViewController;
@@ -30,8 +30,8 @@ use v1\interfaces\ControllerInterface;
             if ( $db = $f3->get('CONTROLLER_DATABASE') )  {
                 if( class_exists($db) ) {
                     try {
-                    //    $this->db = $db::response($f3);
-                       $this->db = call_user_func_array(array($db, 'response'), [$f3]);
+                      if( $this->db = call_user_func_array(array($db, 'response'), [$f3->get('DATABASE')]) );
+                        $this->db = call_user_func_array(array($db, 'getInstance'), [$f3])->_connect();
                     } catch (\Exception $e) {
                         self::log( 'Connection error with the data base.' );
                     }
@@ -48,13 +48,10 @@ use v1\interfaces\ControllerInterface;
 
         }
 
-        /**
-         * @param $f3 Base
-         */
-        public function response(Base $f3)
+        public function response()
         {
             $this->pages =$this->pageController;
-           echo $this->responseView($this->view);
+           return $this->responseView($this->view);
         }
 
         /**

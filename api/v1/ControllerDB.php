@@ -1,12 +1,9 @@
 <?php
-
 namespace v1;
 
-
-use v1\interfaces\ControllerInterface;
 use v1\interfaces\IDataBase;
 
-class ControllerDB implements ControllerInterface, IDataBase
+class ControllerDB implements IDataBase
 {
     private static $instances = [];
     private $serw;
@@ -23,34 +20,38 @@ class ControllerDB implements ControllerInterface, IDataBase
         \PDO::MYSQL_ATTR_COMPRESS => TRUE,
     ];
 
-    private function __construct($f3)
+    private function __construct($config)
     {
-        $this->serw = (string) $f3->get('DB_SERV');
-        $this->host = (string) $f3->get('DB_HOST');
-        $this->port = (string) $f3->get('DB_PORT');
+        $this->serw = (string) $config['DB_SERV'];
+        $this->host = (string) $config['DB_HOST'];
+        $this->port = (string) $config['DB_PORT'];
 
-        $this->db_name = (string) $f3->get('DB_NAME');
-        $this->user = (string)$f3->get('DB_USER');
-        $this->pass = (string) $f3->get('DB_PASS');
-
+        $this->db_name = (string) $config['DB_NAME'];
+        $this->user = (string) $config['DB_USER'];
+        $this->pass = (string) $config['DB_PASS'];
     }
 
-    public static function getInstance($f3): IDataBase
+    /**
+     * @param $f3
+     * @return mixed
+     */
+    public static function getInstance($config) : IDataBase
     {
         $cls = static::class;
         if (!isset(self::$instances[$cls])) {
-            self::$instances[$cls] = new static($f3);
+            self::$instances[$cls] = new static($config);
         }
         return self::$instances[$cls];
     }
-    /**
-     * @param \Base $f3
-     * @return string
-     */
-    public function response(\Base $f3)
+
+    public static function response(array $config)
     {
-        $db = self::getInstance($f3);
-        return $db->_connect();
+        try {
+            $db = self::getInstance($config);
+            return $db->_connect();
+        } catch (\TypeError $e) {
+            return Dispaly::error(500, Message::Error_connect_to_DB );
+        }
     }
 
     public function _connect( $options = '') : \DB\SQL
@@ -63,8 +64,7 @@ class ControllerDB implements ControllerInterface, IDataBase
 
                  $dsn = "{$this->serw}:host={$this->host};port={$this->port};dbname={$this->db_name}";
 
-                $this->pdo =
-                    new \DB\SQL(
+                $this->pdo = new \DB\SQL(
                         $dsn,
                         $this->user,
                         $this->pass,
