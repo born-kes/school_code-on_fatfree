@@ -1,11 +1,13 @@
 <?php
 require('vendor/autoload.php');
 
-if ((float)PCRE_VERSION<8.0)
-	trigger_error('PCRE version is out of date');
+if ((float)PCRE_VERSION < 8.0)
+    trigger_error('PCRE version is out of date');
 
-echo( Base::instance()
-	->config('database.ini')
+$f3 = ( Base::instance()
+    ->config('database.ini')
     ->config('config.ini')
-    ->run()
 );
+$f3->config('routes_v1.ini');
+
+echo $f3->run();
