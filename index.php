@@ -9,5 +9,7 @@ $f3 = ( Base::instance()
     ->config('config.ini')
 );
 $f3->config('routes_v1.ini');
+if(	empty($f3->get('ROUTES'))	)
+	die('brak routingu');
 
 echo $f3->run();

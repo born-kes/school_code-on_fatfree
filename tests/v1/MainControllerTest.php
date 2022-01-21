@@ -14,12 +14,19 @@ class MainControllerTest extends TestCase
         $this->f3 = Base::instance();
         $this->f3->set('QUIET',TRUE);
         $this->f3->config('config.ini');
+        $this->f3->config('routes_v1.ini');
 
         $this-> f3->set('CONTROLLER_PAGE', '\stub\FactoryPage');
         $this-> f3->set('CONTROLLER_VIEW', '\stub\ViewController');
 //        $this-> f3->set('NAMESPACE_PAGE', 'v1\Page');
     }
 
+    function testValidateXConfig()
+    {
+        $this->assertNotTrue(empty($this->f3->get('ROUTES')), 'Route is NOT empty');
+        $this->assertNotNull($this->f3->get('ROUTES'), 'Routes is NOT NULL');
+        $this->assertTrue(is_array($this->f3->get('ROUTES')), 'Router is not array');
+    }
     protected function tearDown(): void
     {
         Aggregator::clineDataAggregator();
@@ -36,8 +43,8 @@ class MainControllerTest extends TestCase
             ['stub\ViewController::response' => 'xyz']
         );
         $respons = [
-            "stub\FactoryPage::__construct => Base",
-            "stub\ViewController::__construct => Base"
+            'stub\FactoryPage::__construct => Base',
+            'stub\ViewController::__construct => Base'
         ];
 
         # Act / When
