@@ -17,5 +17,5 @@ interface IController {
      */
  public function __construct($f3, $PARAMS = [], $router = '');
 
- public function response($f3, $PARAMS = [], $router = '');
+ public function response($f3, $PARAMS = [], $router = ''): string;
 }
