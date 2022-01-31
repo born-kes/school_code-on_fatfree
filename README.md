@@ -32,3 +32,41 @@ You see test list and commands
 Run all tests with this command
 > composer test
 
+# Semantic Commit Messages
+Format: `<type>(<scope>): <subject>`
+```
+[optional] <body>
+
+[optional] <footer(s)>
+```
+
+## More Examples:
+
+
+- `feat`: (new feature for the user, not a new feature for build script)
+- `fix`: (bug fix for the user, not a fix to a build script)
+- `docs`: (changes to the documentation)
+- `style`: (formatting, missing semi colons, etc; no production code change)
+- `refactor`: (refactoring production code, eg. renaming a variable)
+- `test`: (adding missing tests, refactoring tests; no production code change)
+- `perf`: A code change that improves performance
+- `build`: Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)
+- `chore`: (updating grunt tasks etc; no production code change)
+ 
+### scope
+- `add`
+- `remove`
+- `rename`
+- `middleware`
+- `init`
+- `runner`
+- `watcher`
+- `config`
+- `web-server`
+- `proxy`
+
+### footer
+- `Fixes` fix | fixes | fixed
+- `Closes` close | closes | closed
+- `resolves` resolve | resolves | resolved
+ `#issue` 
