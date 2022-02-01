@@ -3,12 +3,11 @@ declare(strict_types = 1);
 namespace tests\v2;
 
 use interfaces\IController;
-use PHPUnit\Framework\TestCase;
 
 /**
  * @property \v2\Controllers\Main mainController
  */
-class ControllerTest extends TestCase
+class ControllerTest extends ControllerTestBase
 {
 
     public function testController()
@@ -23,7 +22,7 @@ class ControllerTest extends TestCase
 
         # Assert
         $this->assertTrue($mainController instanceof IController,
-            'Not implement controller interface'
+            self::Not_implement_controller_interface
         );
 
     }
@@ -44,44 +43,6 @@ class ControllerTest extends TestCase
         # Assert / Then
         $this->expectOutputString($executing);
         echo $mainController->response($f3);
-    }
-
-    /** auxiliary
-     * @param $interface
-     * @param string $method
-     * @param mixed $return
-     * @return stdClass
-     */
-    private function _buildMock($interface, string $method, $return = null)
-    {
-        $mock = $this->createMock($interface);
-        return $this->_build(
-            $mock,
-            $method,
-            $return
-        );
-    }
-
-    private function _build($stub, string $method, $return = null)
-    {
-        if (is_null($return)) {
-            $stub->method($method);
-        } else if (!is_array($return)) {
-            $stub->method($method)->willReturn($return);
-        } else {
-            $stub->method($method)->willReturn($this->onConsecutiveCalls($return));
-        }
-        return $stub;
-    }
-
-    private function _buildStub($interface, $method, $return = null)
-    {
-        $stub = $this->createStub($interface);
-        return $this->_build(
-            $stub,
-            $method,
-            $return
-        );
     }
 
     public function testMockMethodsGetView()
