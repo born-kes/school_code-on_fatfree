@@ -2,6 +2,8 @@
 declare(strict_types = 1);
 namespace tests\v2;
 
+use interfaces\IController;
+
 class pageSearchTest extends ControllerTestBase
 {
     public function testPageImplementInterfaceController()
@@ -33,7 +35,7 @@ class pageSearchTest extends ControllerTestBase
         $this->mainController = new \v2\Controllers\Search($f3, $params, $router);
 
         # Assert / then
-//        $this->mainController->re
+       $this->assertNotEmpty( $this->mainController->response($f3, $params, $router) );
 
     }
 
