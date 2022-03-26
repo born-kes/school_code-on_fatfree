@@ -7,9 +7,11 @@ namespace v2\Controllers;
 use interfaces\IBase;
 use interfaces\IController;
 use interfaces\IView;
+use v2\adapter\ABase;
 
 class Main implements IController
 {
+    /** @var \Base */
     private $f3;
     private $params;
     private $router;
@@ -35,6 +37,7 @@ class Main implements IController
      */
     public function response($f3, $PARAMS = [], $router = ''):string
     {
+        $f3 = new ABase($f3);
         $response = '';
         $DataPage = $f3->get('DataPage');
         try {
@@ -58,7 +61,7 @@ class Main implements IController
         } else if ($className instanceof IView) {
             return $viewController = $className;
         } else {
-            throw new \Exception(printf('Class Controller "%s" not exists', $className));
+            throw new \Exception(sprintf('Class Controller "%s" not exists', $className));
         }
         return $viewController;
     }
