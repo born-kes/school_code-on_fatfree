@@ -11,6 +11,7 @@ $f3 = ( Base::instance()
     ->config('config.ini')
 );
 $f3->config('routes_v1.ini');
+    $f3->config('api\v2\routes_v2.ini');
 if(	empty($f3->get('ROUTES'))	)
 	die('brak routingu');
 
