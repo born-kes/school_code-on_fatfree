@@ -33,6 +33,7 @@
   },
   "scripts": {
     "tv2": "php ./vendor/phpunit/phpunit/phpunit tests/v2",
+    "test-v2": "php ./vendor/phpunit/phpunit/phpunit --group=version2", 
     "testMyPageController": "php ./vendor/phpunit/phpunit/phpunit tests/stub/MyPageControllerTest.php --testdox",
     "testAggregator": "php ./vendor/phpunit/phpunit/phpunit tests/stub/AggregatorTest.php --testdox",
     "testPage": "php ./vendor/phpunit/phpunit/phpunit tests/stub/PageTest.php --testdox",

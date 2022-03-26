@@ -37,7 +37,7 @@ class Main implements IController
      */
     public function response($f3, $PARAMS = [], $router = ''):string
     {
-        $f3 = new ABase($f3);
+        $f3 = $this->getABase($f3);
         $response = '';
         $DataPage = $f3->get('DataPage');
         try {
@@ -50,6 +50,11 @@ class Main implements IController
             return "{$e->getMessage()}";
         }
         return $response;
+    }
+
+    public function getABase($f3)
+    {
+        return new ABase($f3);
     }
 
     function getView(IBase $f3, $DataPage = []): IView
