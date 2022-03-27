@@ -38,6 +38,7 @@ class Main implements IController
     public function response($f3, $PARAMS = [], $router = ''):string
     {
         $f3 = $this->getABase($f3);
+        $f3->config('api\v2\config_v2.ini');
         $response = '';
         $DataPage = $f3->get('DataPage');
         try {

@@ -48,5 +48,8 @@ class ABase implements IBase
     {
         return $this->f3->get($key, $args);
     }
-
+    
+    public function config($source,$allow=FALSE){
+        $this->f3->config($source);
+    }
 }

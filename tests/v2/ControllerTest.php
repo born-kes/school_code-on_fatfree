@@ -79,10 +79,11 @@ class ControllerTest extends ControllerTestBase
         $ProductionF3 = \Base::instance();
         $stub = $this->_buildMock(\interfaces\IView::class, 'get', $executing);
         $mockBase = $this->_buildStub(\interfaces\IBase::class, 'get', $stub);
+        $mockBase->method('config');
         $mockMainController = $this->getMockBuilder('\v2\Controllers\Main')
           ->setConstructorArgs([$ProductionF3, ['$params'], '$router'])
           ->onlyMethods(['getABase'])
-          ->getMock('$mockBase');
+          ->getMock();
         $mockMainController->method('getABase')->willReturn($mockBase);
 
         # Assert / Then
