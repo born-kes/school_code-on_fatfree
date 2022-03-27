@@ -93,4 +93,38 @@ class ControllerTest extends ControllerTestBase
         $this->assertEquals($executing, $response);
     }
 
+    /**
+     * @test
+     * @testdox Controller should return data from View, but use data from ABase
+     * @group version2
+     */
+    public function shouldReturnDataFromViewAndUseAdapterBase()
+    {   
+        $executing = '<html></html>';
+        $instanceF3 = \Base::instance();
+        $stubClassF3 = $this->_buildStub(\interfaces\IBase::class);
+        $stubClassF3->method('get')->willReturn('dataPage');
+
+        $mockView = $this->createMock(\interfaces\IView::class);
+        $mockView
+          ->expects($this->once())
+          ->method('get')->with($stubClassF3, 'dataPage')
+          ->willReturn('<html></html>');
+
+        # Arrange / Given
+        $mockMainController = $this->getMockBuilder('\v2\Controllers\Main')
+          ->setConstructorArgs([$instanceF3, ['$params'], '$router'])
+          ->onlyMethods(['getABase', 'getView'])
+          ->getMock();
+
+        $mockMainController->method('getABase')->willReturn($stubClassF3);
+        $mockMainController->method('getView')->willReturn($mockView);
+
+        # Assert / Then
+        $response = $mockMainController->response($instanceF3, ['$params'], '$router');
+
+        # Act / When
+        $this->assertEquals($executing, $response);
+    }
+
 }
