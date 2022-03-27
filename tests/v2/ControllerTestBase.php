@@ -1,5 +1,5 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 namespace tests\v2;
 
 use PHPUnit\Framework\TestCase;
@@ -10,11 +10,11 @@ class ControllerTestBase extends TestCase
 
     /** auxiliary
      * @param interface $interface
-     * @param string $method
+     * @param string|array $method
      * @param mixed $return
      * @return stdClass
      */
-    protected function _buildMock($interface, string $method, $return = null)
+    protected function _buildMock($interface, $method, $return = null)
     {
         $mock = $this->createMock($interface);
         return $this->_build(
@@ -26,13 +26,18 @@ class ControllerTestBase extends TestCase
 
     /** auxiliary
      * @param object $stub
-     * @param string $method
+     * @param string|array $method
      * @param mixed $return
      * @return object
      */
-    protected function _build($stub, string $method, $return = null)
+    protected function _build($stub, $method, $return = null)
     {
-        if (is_null($return)) {
+        if (is_null($method)) {
+         return $stub;   
+        }
+        if (is_array($method)) {
+            $this->_addMethod($stub, $method);
+        } else if (is_null($return)) {
             $stub->method($method);
         } else if (!is_array($return)) {
             $stub->method($method)->willReturn($return);
@@ -48,7 +53,7 @@ class ControllerTestBase extends TestCase
      * @param mixed $return
      * @return object
      */
-    protected function _buildStub($interface, $method, $return = null)
+    protected function _buildStub($interface, $method = null, $return = null)
     {
         $stub = $this->createStub($interface);
         return $this->_build(
@@ -57,6 +62,18 @@ class ControllerTestBase extends TestCase
             $return
         );
     }
+
+    protected function _addMethod(&$stub, array $methods)
+    {
+        foreach ($methods as $method => $return) {
+            $this->_build(
+              $stub,
+              $method,
+              $return
+            );
+        }
+    }
+
 /**
 
 
