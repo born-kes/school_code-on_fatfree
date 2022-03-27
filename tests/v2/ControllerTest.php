@@ -74,23 +74,27 @@ class ControllerTest extends ControllerTestBase
      */
     public function shouldUseAdapterBase()
     {
+        $ProductionF3 = '\Base::instance()';
+        $mockBase = $this->_buildMock(
+          \interfaces\IBase::class,
+          ['get' => null, 'config' => null]
+        );
+
         # Arrange / Given
-        $executing = '<html></html>';
-        $ProductionF3 = \Base::instance();
-        $stub = $this->_buildMock(\interfaces\IView::class, 'get', $executing);
-        $mockBase = $this->_buildStub(\interfaces\IBase::class, 'get', $stub);
-        $mockBase->method('config');
         $mockMainController = $this->getMockBuilder('\v2\Controllers\Main')
           ->setConstructorArgs([$ProductionF3, ['$params'], '$router'])
           ->onlyMethods(['getABase'])
           ->getMock();
-        $mockMainController->method('getABase')->willReturn($mockBase);
+
+        $mockMainController
+          ->expects($this->once())
+          ->method('getABase')->with($ProductionF3)
+          ->willReturn($mockBase);
 
         # Assert / Then
-        $response = $mockMainController->response($ProductionF3, ['$params'], '$router');
+        $mockMainController->response($ProductionF3, ['$params'], '$router');
 
         # Act / When
-        $this->assertEquals($executing, $response);
     }
 
     /**
@@ -99,7 +103,7 @@ class ControllerTest extends ControllerTestBase
      * @group version2
      */
     public function shouldReturnDataFromViewAndUseAdapterBase()
-    {   
+    {
         $executing = '<html></html>';
         $instanceF3 = \Base::instance();
         $stubClassF3 = $this->_buildStub(\interfaces\IBase::class);
