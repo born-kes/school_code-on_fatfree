@@ -60,16 +60,8 @@ class Main implements IController
 
     function getView(IBase $f3, $DataPage = []): IView
     {
-        $className = $f3->get('ViewController');
-
-        if (is_string($className) && class_exists($className)) {
-            $viewController = new $className($f3, $DataPage);
-        } else if ($className instanceof IView) {
-            return $viewController = $className;
-        } else {
-            throw new \Exception(sprintf('Class Controller "%s" not exists', $className));
-        }
-        return $viewController;
+        $this->view = new View($f3);
+        return $this->view->getView();
     }
 
 
