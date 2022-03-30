@@ -1,4 +1,5 @@
 <?php
+defined('DIR') or define('DIR', __DIR__);
 require('vendor/autoload.php');
 
 if ((float)PCRE_VERSION < 8.0)
