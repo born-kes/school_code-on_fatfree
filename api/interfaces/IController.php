@@ -1,12 +1,8 @@
 <?php
+declare(strict_types = 1);
 
 namespace interfaces;
 
-/**
- * Description of Controller
- *
- * @author lukasz.martyn
- */
 interface IController {
 
  /**
