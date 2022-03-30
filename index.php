@@ -4,7 +4,7 @@ require('vendor/autoload.php');
 if ((float)PCRE_VERSION < 8.0)
     trigger_error('PCRE version is out of date');
 try {
-	function t($string){ return $string; }
+	function t($string='', $arg = 'tests'){ return sprintf($string, $arg); }
 
 $f3 = ( Base::instance()
     ->config('database.ini')
