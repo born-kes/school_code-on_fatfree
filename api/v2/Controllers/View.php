@@ -3,6 +3,7 @@ declare(strict_types=1);
 namespace v2\Controllers;
 
 use \interfaces\IBase;
+use \interfaces\IView;
 
 class View
 {
@@ -12,7 +13,7 @@ class View
     public function __construct(IBase $f3)
     {
         $this->f3 = $f3;
-        $this->viwe = $this->getControllerView();
+        $this->view = $this->getControllerView();
     }
 
     function getView(): IView
