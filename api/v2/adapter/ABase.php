@@ -10,6 +10,7 @@ use interfaces\IBase;
  * @package v2
  */
 class ABase implements IBase
+, \v2\interfaces\IGetContents
 {
 
     /* @var \Base */

@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace v2\interfaces\IGetContents;
+namespace v2\interfaces;
 
 interface IGetContents
 {
