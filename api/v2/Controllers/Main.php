@@ -1,7 +1,6 @@
 <?php
-
-declare(strict_types = 1);
-
+declare(strict_types=1 );
+defined('FILE') or exit;
 namespace v2\Controllers;
 
 use interfaces\IBase;
@@ -11,6 +10,7 @@ use v2\adapter\ABase;
 
 class Main implements IController
 {
+
     /** @var \Base */
     private $f3;
     private $params;
@@ -35,7 +35,7 @@ class Main implements IController
      * @param string $router
      * @return string
      */
-    public function response($f3, $PARAMS = [], $router = ''):string
+    public function response($f3, $PARAMS = [], $router = ''): string
     {
         $f3 = $this->getABase($f3);
         $f3->config('api\v2\config_v2.ini');
@@ -44,7 +44,7 @@ class Main implements IController
         try {
             /** @var IView $view */
             $view = $this->getView($f3, $DataPage);
-            $response = $view->get($f3, $DataPage);
+            echo $view;
         } catch (\Exception $e) {
             return "{$e->getMessage()}";
         } catch (\Throwable $e) {
@@ -58,11 +58,10 @@ class Main implements IController
         return new ABase($f3);
     }
 
-    function getView(IBase $f3, $DataPage = []): IView
+    function getView(IBase $f3, $DataPage = [])
     {
         $this->view = new View($f3);
         return $this->view->getView();
     }
-
 
 }
