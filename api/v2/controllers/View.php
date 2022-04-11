@@ -11,15 +11,15 @@ class View
     private $f3;
     private $view;
 
+    function getView(): IView
+    {
+        return $this->view;
+    }
+
     public function __construct(IBase $f3)
     {
         $this->f3 = $f3;
         $this->view = $this->getControllerView();
-    }
-
-    function getView(): IView
-    {
-        return $this->view;
     }
 
     private function getControllerView()
