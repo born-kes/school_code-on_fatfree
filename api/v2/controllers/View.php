@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace v2\Controllers;
+namespace v2\controllers;
 
 use \interfaces\IBase;
 use \interfaces\IView;

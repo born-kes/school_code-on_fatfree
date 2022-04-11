@@ -3,6 +3,7 @@ declare(strict_types = 1);
 namespace tests\v2;
 
 use interfaces\IController;
+use \v2\controllers\Search;
 
 class pageSearchTest extends ControllerTestBase
 {
@@ -14,7 +15,7 @@ class pageSearchTest extends ControllerTestBase
         $router = '';
 
         # Act / When
-        $mainController = new \v2\Controllers\Search($f3, $params, $router);
+        $mainController = new Search($f3, $params, $router);
 
         # Assert
         $this->assertTrue($mainController instanceof IController,
@@ -32,7 +33,7 @@ class pageSearchTest extends ControllerTestBase
         $router = '';
 
         # Act / When
-        $this->mainController = new \v2\Controllers\Search($f3, $params, $router);
+        $this->mainController = new Search($f3, $params, $router);
 
         # Assert / then
        $this->assertNotEmpty( $this->mainController->response($f3, $params, $router) );

@@ -3,9 +3,10 @@ declare(strict_types=1);
 namespace tests\v2;
 
 use interfaces\IController;
+use \v2\controllers\Main;
 
 /**
- * @property \v2\Controllers\Main mainController
+ * @property \v2\controllers\Main mainController
  */
 class ControllerTest extends ControllerTestBase
 {
@@ -21,7 +22,7 @@ class ControllerTest extends ControllerTestBase
         $router = '';
 
         # Act / When
-        $mainController = new \v2\Controllers\Main($f3, $params, $router);
+        $mainController = new Main($f3, $params, $router);
 
         # Assert
         $this->assertTrue($mainController instanceof IController,
@@ -40,7 +41,7 @@ class ControllerTest extends ControllerTestBase
         $f3 = $this->_buildStub(\interfaces\IBase::class, 'get', $stub);
 
         # Act / When
-        $mainController = new \v2\Controllers\Main($f3, $params, $router);
+        $mainController = new Main($f3, $params, $router);
 
         # Assert / Then
         $this->expectOutputString($executing);
@@ -52,7 +53,7 @@ class ControllerTest extends ControllerTestBase
         # Arrange / Given
         $executing = 'Message Exception';
         $f3 = $this->_buildStub(\interfaces\IBase::class, 'get');
-        $created = $this->getMockBuilder('\v2\Controllers\Main')
+        $created = $this->getMockBuilder('\v2\controllers\Main')
           ->setConstructorArgs([$f3, '$params', '$router'])
           ->onlyMethods(['getView'])
           ->getMock();
@@ -81,7 +82,7 @@ class ControllerTest extends ControllerTestBase
         );
 
         # Arrange / Given
-        $mockMainController = $this->getMockBuilder('\v2\Controllers\Main')
+        $mockMainController = $this->getMockBuilder('\v2\controllers\Main')
           ->setConstructorArgs([$ProductionF3, ['$params'], '$router'])
           ->onlyMethods(['getABase'])
           ->getMock();
@@ -116,7 +117,7 @@ class ControllerTest extends ControllerTestBase
           ->willReturn('<html></html>');
 
         # Arrange / Given
-        $mockMainController = $this->getMockBuilder('\v2\Controllers\Main')
+        $mockMainController = $this->getMockBuilder('\v2\controllers\Main')
           ->setConstructorArgs([$instanceF3, ['$params'], '$router'])
           ->onlyMethods(['getABase', 'getView'])
           ->getMock();
