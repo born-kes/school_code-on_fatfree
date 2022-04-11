@@ -25,7 +25,7 @@ class Template implements \interfaces\IView
 
     public function __construct(IGetContents $f3, string $templateFile = 'layout.html', $toolsString = '')
     {
-        $this->path = $f3->get('DIR') . $f3->get('UI');
+        $this->path = $f3->get('DIR') . $f3->get('UI2');
         $this->templateFile = $templateFile;
         $this->toolsString = $this->getTools($toolsString);
         $this->template = $this->getTemplate($f3, $templateFile);

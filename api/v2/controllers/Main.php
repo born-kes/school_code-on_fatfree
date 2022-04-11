@@ -40,14 +40,12 @@ class Main implements IController
      */
     public function response($f3, $PARAMS = [], $router = ''): string
     {
-        $f3 = $this->getABase($f3);
-        $f3->set('DIR', DIR);
-        $f3->config('api\v2\config_v2.ini');
+        $this->f3 = $this->getABase($f3);
         $response = '';
-        $DataPage = $f3->get('DataPage');
+        $DataPage = $this->f3->get('DataPage');
         try {
             /** @var IView $view */
-            $view = $this->getView($f3, $DataPage);
+            $view = $this->getView($this->f3, $DataPage);
             echo $view;
         } catch (\Exception $e) {
             return "{$e->getMessage()}";
@@ -57,12 +55,12 @@ class Main implements IController
         return $response;
     }
 
-    public function getABase($f3)
+    public function getABase($f3) :IBase
     {
         return new ABase($f3);
     }
 
-    function getView(IBase $f3, $DataPage = [])
+    function getView(IBase $f3, $DataPage = []):IView
     {
         $this->view = new View($f3);
         return $this->view->getView();

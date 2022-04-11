@@ -11,8 +11,9 @@ $f3 = ( Base::instance()
     ->config('database.ini')
     ->config('config.ini')
 );
+$f3->set('DIR', DIR);
 $f3->config('routes_v1.ini');
-    $f3->config('api\v2\routes_v2.ini');
+$f3->config('api\v2\config_v2.ini');
 if(	empty($f3->get('ROUTES'))	)
 	die('brak routingu');
 

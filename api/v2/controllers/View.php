@@ -9,6 +9,7 @@ class View
 {
 
     private $f3;
+    private $view;
 
     public function __construct(IBase $f3)
     {
