@@ -1,7 +1,10 @@
 <?php
-declare(strict_types=1 );
+declare(strict_types=1);
+
 namespace v2\controllers;
+
 defined('DIR') or exit;
+
 use interfaces\IBase;
 use interfaces\IController;
 use interfaces\IView;
@@ -14,6 +17,7 @@ class Main implements IController
     private $f3;
     private $params;
     private $router;
+    private $view;
 
     /**
      * IController constructor.
@@ -37,7 +41,7 @@ class Main implements IController
     public function response($f3, $PARAMS = [], $router = ''): string
     {
         $f3 = $this->getABase($f3);
-        $f3->set('DIR', DIR );
+        $f3->set('DIR', DIR);
         $f3->config('api\v2\config_v2.ini');
         $response = '';
         $DataPage = $f3->get('DataPage');
@@ -58,9 +62,10 @@ class Main implements IController
         return new ABase($f3);
     }
 
-    function getView(IBase $f3, $DataPage = []){
-$this->view = new View($f3);
-return $this->view->getView();
+    function getView(IBase $f3, $DataPage = [])
+    {
+        $this->view = new View($f3);
+        return $this->view->getView();
     }
 
 }
