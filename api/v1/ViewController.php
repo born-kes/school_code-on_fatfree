@@ -29,8 +29,7 @@ class ViewController implements ViewControllerInterface
      */
     public function response(FactoryPageInterface $pages) : string
     {
-
-        $this->f3->set('navHtml', '/nav.html');
+        $this->f3->set('navHtml', 'nav.html');
         $this->f3->set('menuLinks', array_merge($pages->getPageList(),[]));
         $this->f3->set('content', $pages->getContentFromControllerClass() );
 

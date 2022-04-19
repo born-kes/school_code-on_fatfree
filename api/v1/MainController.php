@@ -46,7 +46,9 @@ class MainController implements ControllerInterface
         else {
             self::log('Not found class: ' . $f3->get('CONTROLLER_DATABASE'));
         }
-
+        if (is_null($f3->get('PARAMS.page'))) {
+            $f3->set('PARAMS.page', '');
+        }
 
         $controllerPage = $f3->get('CONTROLLER_PAGE');
         $this->pageController = new $controllerPage($f3);
