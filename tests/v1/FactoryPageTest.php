@@ -16,10 +16,19 @@ class FactoryPageTest extends TestCase
     function setUp(): void
     {
         $this->f3 = \Base::instance();
-        $this->f3->set('QUIET',TRUE);
+        $this->f3->set('QUIET', TRUE);
         $this->f3->config('config.ini');
+		$this->f3->config('routes_v1.ini');
 
     }
+
+    function testValidateXConfig()
+    {
+        $this->assertNotTrue(empty($this->f3->get('ROUTES')), 'Route is NOT empty');
+        $this->assertNotNull($this->f3->get('ROUTES'), 'Routes is NOT NULL');
+        $this->assertTrue(is_array($this->f3->get('ROUTES')), 'Router is not array');
+    }
+
     protected function tearDown(): void
     {
         Aggregator::clineDataAggregator();
@@ -27,7 +36,7 @@ class FactoryPageTest extends TestCase
 
     protected function getBaseMock($url = 'GET /')
     {
-       return $this->f3->mock($url);
+        return $this->f3->mock($url);
     }
     /**
      *  Test implements Interface PageControllerInterface
@@ -119,6 +128,7 @@ class FactoryPageTest extends TestCase
      * Fake class Lib in stub/Page file
      */
     function t_estDefenseAgainstGetErrorClassContent () {
+    {
 
         $this->f3->mock('GET /Archiwum/lib ');
 

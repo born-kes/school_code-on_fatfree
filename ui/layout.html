@@ -17,10 +17,10 @@
 	</head>
 	<body>
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-	<include href="{{ @ui . @navHtml }}" />
+	<include if="{{ isset(@navHtml) }}" href="{{ @navHtml }}" />
 	<div class="container">
 	<div class="selector-for-some-widget">
-	<h1>{{ @PARAMS.page }}</h1>
+	<h1>{{ isset(@PARAMS.page)?@PARAMS.page:'' }}</h1>
         <div>
 			<check if="{{ is_callable(@content) }}">
 				<true>{{@content()}}</true>
